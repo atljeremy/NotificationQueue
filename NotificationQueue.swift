@@ -105,33 +105,34 @@ extension NSTimeInterval {
 
 class NotificationQueue: CollectionType {
     
-    private let lock = NSLock()
-    private var timer: NSTimer!
-    private var timeInterval: NSTimeInterval
-    private var queue = [Notification]()
-    private var handlers = [WeakHandler]()
+    private var _timer: NSTimer!
+    private var _timeInterval: NSTimeInterval
+    private var _queue = [Notification]()
+    private var _handlers = [WeakHandler]()
+    private let _handlerDispatchQueue = dispatch_queue_create("com.merchcat.NotificationQueue.SynchronousHandlerQueue", nil)
+    private let _notificationDispatchQueue = dispatch_queue_create("com.merchcat.NotificationQueue.SynchronousHandlerQueue", nil)
     
     internal typealias Index = Int
     internal var startIndex: Index { return 0 }
-    internal var endIndex: Index { return queue.endIndex }
+    internal var endIndex: Index { return _queue.endIndex }
 
-    var count: Int { return queue.count }
-    var isEmpty: Bool { return queue.isEmpty }
+    var count: Int { return _queue.count }
+    var isEmpty: Bool { return _queue.isEmpty }
     
     subscript (_i: Index) -> Notification {
         get {
-            let notification = queue[_i]
+            let notification = _queue[_i]
             return notification
         }
         set(newValue) {
-            if !contains(queue, newValue) {
-                queue.insert(newValue, atIndex: _i)
+            if !contains(_queue, newValue) {
+                _queue.insert(newValue, atIndex: _i)
             }
         }
     }
     
     func generate() -> GeneratorOf<Notification> {
-        var notificationGenerator = queue.generate()
+        var notificationGenerator = _queue.generate()
         return GeneratorOf {
             if let notification = notificationGenerator.next() {
                 return notification
@@ -152,65 +153,70 @@ class NotificationQueue: CollectionType {
     }
     
     init(timeInterval: NSTimeInterval) {
-        self.timeInterval = timeInterval
+        _timeInterval = timeInterval
         NSThread.detachNewThreadSelector("createTimer", toTarget: self, withObject: nil)
     }
     
     @objc private func createTimer() {
         NSThread.currentThread().name = "NotificationQueueTimerThread"
         let runLoop = NSRunLoop.currentRunLoop()
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: "checkForScheduledNotifications", userInfo: nil, repeats: true)
-        runLoop.addTimer(self.timer, forMode: NSRunLoopCommonModes)
+        _timer = NSTimer.scheduledTimerWithTimeInterval(_timeInterval, target: self, selector: "checkForScheduledNotifications", userInfo: nil, repeats: true)
+        runLoop.addTimer(_timer, forMode: NSRunLoopCommonModes)
         runLoop.run()
     }
     
     @objc func checkForScheduledNotifications() {
-        if lock.tryLock() {
+        dispatch_sync(_notificationDispatchQueue) {
             var removedNotifications = [Notification]()
-            for (index, notification) in enumerate(queue) {
+            for notification in self._queue {
                 if notification.scheduledForDate <= NSDate() {
-                    dispatch(notification)
+                    self.dispatch(notification)
                     removedNotifications.append(notification)
                 }
             }
             if removedNotifications.count > 0 {
-                for (_, notification) in enumerate(removedNotifications) {
-                    queue = queue.filter { $0 != notification }
+                for notification in removedNotifications {
+                    self._queue = self._queue.filter { $0 != notification }
                 }
             }
-            lock.unlock()
         }
     }
     
     func enqueueNotification(notification: Notification) {
-        lock.lock()
-        queue.append(notification)
-        lock.unlock()
+        dispatch_sync(_notificationDispatchQueue) {
+            self._queue.append(notification)
+        }
     }
 
     func addHandler(handler: NotificationHandler) {
-        handlers.append(WeakHandler(handler))
+        dispatch_sync(_handlerDispatchQueue) {
+            self._handlers.append(WeakHandler(handler))
+        }
     }
     
     func removeHandler(handler: NotificationHandler) {
-        handlers = handlers.filter { weakHandler -> Bool in
-            if let _handler = weakHandler.handler() {
-                return !_handler.isEqualToHandler(handler)
+        dispatch_sync(_handlerDispatchQueue) {
+            self._handlers = self._handlers.filter { weakHandler -> Bool in
+                if let _handler = weakHandler.handler() {
+                    return !_handler.isEqualToHandler(handler)
+                }
+                return false
             }
-            return false
         }
     }
     
     func dispatch(notification: Notification) {
-        for (index, weakHandler) in enumerate(handlers) {
-            if let handler = weakHandler.handler() {
-                if handler.canHandle(notification) {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        handler.handle(notification)
+        dispatch_sync(_handlerDispatchQueue) {
+            for (index, weakHandler) in enumerate(self._handlers) {
+                if let handler = weakHandler.handler() {
+                    if handler.canHandle(notification) {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            handler.handle(notification)
+                        }
                     }
+                } else {
+                    self._handlers.removeAtIndex(index)
                 }
-            } else {
-                handlers.removeAtIndex(index)
             }
         }
     }
