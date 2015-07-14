@@ -1,6 +1,6 @@
 # NotificationQueue
 
-NotificationQueue is a swift library that can be used to handling scheduling notifications. it allows for registering multiple notification handlers and each have the ability to determine if they can / should handle a specific notification. NotificationQueue is very light weight and starts a background processing thread for checking if notificaitons are ready to be displayed. 
+NotificationQueue is a swift library that can be used to handle creating and scheduling notifications. it allows for registering multiple notification handlers and each have the ability to determine if they can / should handle a specific notification. NotificationQueue is very light weight and starts a background processing thread for checking if notificaitons are ready to be displayed. 
 
 Notification
 ------------
