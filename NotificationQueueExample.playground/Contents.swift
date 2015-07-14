@@ -19,8 +19,13 @@ class SomeViewController: UIViewController, NotificationHandler {
         // Code to determine if the "notification" can be handled by this class instance
         // true = this class instance can and should handle the "notification"
         // false = this class instance can't and shouldn't handle the "notification"
-        
-        return true
+
+        let alertIsShowing = self.presentedViewController is UIAlertController
+        let isCurrentVisibleViewController = self.navigationController?.visibleViewController is SomeViewController
+        if isCurrentVisibleViewController && !alertIsShowing {
+            return true
+        }
+        return false
     }
     
     func handle(notification: Notification) {

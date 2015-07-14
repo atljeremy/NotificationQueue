@@ -185,7 +185,7 @@ public class NotificationQueue: CollectionType {
     private func dispatch(notification: Notification) {
         dispatch_sync(_handlerDispatchQueue) {
             self._handlers = self._handlers.filter { $0.handler() != nil }
-            for (index, weakHandler) in enumerate(self._handlers) {
+            for weakHandler in self._handlers {
                 if let handler = weakHandler.handler() {
                     if handler.canHandle(notification) {
                         dispatch_async(dispatch_get_main_queue()) {
