@@ -10,12 +10,14 @@ Here's an example of creating a notification that should be displayed in 5 secon
 let delayedNotificaiton = Notification(scheduledForDate: 5.seconds.fromNow, "Title", "Sub-title", .Success)
 ```
 
-Scheduling notification's is super easy, just pass them in to the "enqueueNotification:" function of the NotificationQueue
+Scheduling notification's is super easy, just pass them in to the "enqueueNotification:" function of the `NotificationQueue`
 ```swift
 NotificationQueue.sharedQueue().enqueueNotification(notification)
 NotificationQueue.sharedQueue().enqueueNotification(delayedNotificaiton)
 ```
 
+All `Notification`'s must be handled by a `Notificationhandler`. `NotificationHandler` is simply a protocol that you will have your objects conform to if they should be responsible for handling `Notifiation`'s. Here's a simple example of how to conform to the `NotificationHandler` protocol.
+Here's a simple example of how to conform to the NotificationHandler
 ```swift
 class SomeViewController: UIViewController, NotificationHandler {
     
