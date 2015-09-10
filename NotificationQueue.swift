@@ -125,15 +125,15 @@ class NotificationQueue: CollectionType {
             return notification
         }
         set(newValue) {
-            if !contains(_queue, newValue) {
+            if !_queue.contains(newValue) {
                 _queue.insert(newValue, atIndex: _i)
             }
         }
     }
     
-    func generate() -> GeneratorOf<Notification> {
+    func generate() -> AnyGenerator<Notification> {
         var notificationGenerator = _queue.generate()
-        return GeneratorOf {
+        return anyGenerator {
             if let notification = notificationGenerator.next() {
                 return notification
             }
@@ -207,7 +207,7 @@ class NotificationQueue: CollectionType {
     
     func dispatch(notification: Notification) {
         dispatch_sync(_handlerDispatchQueue) {
-            for (index, weakHandler) in enumerate(self._handlers) {
+            for (index, weakHandler) in self._handlers.enumerate() {
                 if let handler = weakHandler.handler() {
                     if handler.canHandle(notification) {
                         dispatch_async(dispatch_get_main_queue()) {
