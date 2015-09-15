@@ -207,15 +207,14 @@ class NotificationQueue: CollectionType {
     
     func dispatch(notification: Notification) {
         dispatch_sync(_handlerDispatchQueue) {
-            for (index, weakHandler) in self._handlers.enumerate() {
+            self._handlers = self._handlers.filter { $0.handler() != nil }
+            for (_, weakHandler) in self._handlers.enumerate() {
                 if let handler = weakHandler.handler() {
                     if handler.canHandle(notification) {
                         dispatch_async(dispatch_get_main_queue()) {
                             handler.handle(notification)
                         }
                     }
-                } else {
-                    self._handlers.removeAtIndex(index)
                 }
             }
         }
