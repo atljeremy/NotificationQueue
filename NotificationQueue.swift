@@ -133,7 +133,7 @@ class NotificationQueue: CollectionType {
     
     func generate() -> AnyGenerator<Notification> {
         var notificationGenerator = _queue.generate()
-        return anyGenerator {
+        return AnyGenerator {
             if let notification = notificationGenerator.next() {
                 return notification
             }
@@ -154,13 +154,13 @@ class NotificationQueue: CollectionType {
     
     init(timeInterval: NSTimeInterval) {
         _timeInterval = timeInterval
-        NSThread.detachNewThreadSelector("createTimer", toTarget: self, withObject: nil)
+        NSThread.detachNewThreadSelector(#selector(createTimer), toTarget: self, withObject: nil)
     }
     
     @objc private func createTimer() {
         NSThread.currentThread().name = "NotificationQueueTimerThread"
         let runLoop = NSRunLoop.currentRunLoop()
-        _timer = NSTimer.scheduledTimerWithTimeInterval(_timeInterval, target: self, selector: "checkForScheduledNotifications", userInfo: nil, repeats: true)
+        _timer = NSTimer.scheduledTimerWithTimeInterval(_timeInterval, target: self, selector: #selector(checkForScheduledNotifications), userInfo: nil, repeats: true)
         runLoop.addTimer(_timer, forMode: NSRunLoopCommonModes)
         runLoop.run()
     }
