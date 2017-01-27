@@ -9,36 +9,25 @@
 import Foundation
 
 public enum NotificationStyle: UInt {
-    case Default
-    case Error
-    case Success
-    case Warning
-    case Info
+    case `default`
+    case error
+    case success
+    case warning
+    case info
 }
 
 public class Notification: Equatable {
    
-    public var scheduledForDate: NSDate
+    public var scheduledForDate: Date
     public var title: String?
     public var message: String?
     public var style: NotificationStyle?
     
-    public required init(scheduledForDate: NSDate) {
-        self.scheduledForDate = scheduledForDate
-    }
-    
-    public convenience init(scheduledForDate: NSDate = NSDate(),_ title: String?,_ message: String?,_ style: NotificationStyle) {
-        self.init(scheduledForDate: scheduledForDate)
+    public required init(scheduled `for`: Date = Date(), title: String?, message: String?, style: NotificationStyle = .default) {
+        self.scheduledForDate = `for`
         self.title = title
         self.message = message
         self.style = style
-    }
-    
-    public class func scheduledNotificationForDate(date: NSDate = NSDate(),_ title: String?,_ message: String?,_ style: NotificationStyle) {
-        let notification = Notification(scheduledForDate: date)
-        notification.title = title
-        notification.message = message
-        notification.style = style
     }
     
 }
