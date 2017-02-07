@@ -6,20 +6,28 @@
 //  Copyright (c) 2015 Jeremy Fox. All rights reserved.
 //
 
-protocol NotificationHandler : class {
-    func canHandle(notification: Notification) -> Bool
-    func handle(notification: Notification)
-    func isEqualToHandler(handler: NotificationHandler) -> Bool
+public protocol NotificationHandler : class {
+    
+    /**
+     Used to tell the `NotificationQueue` if the `NotificationHandler` can handle the `notification`
+     */
+    func canHandle(_ notification: Notification) -> Bool
+    
+    /**
+     Used the perform an action with this given `notification`. This will only be called if `canHandle(notification:)` returns `true`.
+     */
+    func handle(_ notification: Notification)
+    
+    /**
+     Used to determine if a `NotificationHandler` instance is equeal to `handler`
+     */
+    func isEqualToHandler(_ handler: NotificationHandler) -> Bool
 }
 
-final class WeakHandler {
-    private weak var _handler: NotificationHandler?
+public final class WeakHandler {
+    fileprivate(set) weak var handler: NotificationHandler?
     
     init(_ handler: NotificationHandler) {
-        _handler = handler
-    }
-    
-    func handler() -> NotificationHandler? {
-        return _handler
+        self.handler = handler
     }
 }

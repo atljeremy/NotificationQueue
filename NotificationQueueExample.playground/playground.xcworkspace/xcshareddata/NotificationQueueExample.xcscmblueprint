@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8E32A9E968B9CD5E31A8CA0432447305C018388B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8E32A9E968B9CD5E31A8CA0432447305C018388B" : 0,
+    "F074788A689FAEE34E43CEDF9FA57AA1AF7F9E2C" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "815BCEA4-3392-4AC0-8433-19537713CD87",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8E32A9E968B9CD5E31A8CA0432447305C018388B" : "NotificationQueue\/",
+    "F074788A689FAEE34E43CEDF9FA57AA1AF7F9E2C" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "NotificationQueueExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "NotificationQueueExample.playground",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:atljeremy\/NotificationQueue.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8E32A9E968B9CD5E31A8CA0432447305C018388B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.com:lawntap\/lawntap-ios",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F074788A689FAEE34E43CEDF9FA57AA1AF7F9E2C"
+    }
+  ]
+}
