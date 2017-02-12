@@ -187,7 +187,7 @@ open class NotificationQueue: Collection {
         }
     }
     
-    public func enqueueNotification(_ notification: Notification) {
+    public func enqueue(_ notification: Notification) {
         _notificationDispatchQueue.sync {
             self._queue.append(notification)
         }
