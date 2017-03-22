@@ -16,7 +16,7 @@ public enum NotificationStyle: UInt {
     case info
 }
 
-public class Notification: Equatable {
+open class Notification: Equatable {
    
     public var scheduledForDate: Date
     public var title: String?
