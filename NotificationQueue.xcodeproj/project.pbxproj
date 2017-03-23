@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		197940D21E84041700FA41A5 /* NotificationQueue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 197940C81E84041700FA41A5 /* NotificationQueue.framework */; };
+		197940D21E84041700FA41A5 /* NotificationQueueiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 197940C81E84041700FA41A5 /* NotificationQueueiOS.framework */; };
 		197940D71E84041700FA41A5 /* NotificationQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197940D61E84041700FA41A5 /* NotificationQueueTests.swift */; };
 		197940D91E84041700FA41A5 /* NotificationQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 197940CB1E84041700FA41A5 /* NotificationQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		197940E51E84045E00FA41A5 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197940E21E84045E00FA41A5 /* Notification.swift */; };
@@ -26,7 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		197940C81E84041700FA41A5 /* NotificationQueue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NotificationQueue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		197940C81E84041700FA41A5 /* NotificationQueueiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NotificationQueueiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		197940CB1E84041700FA41A5 /* NotificationQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationQueue.h; sourceTree = "<group>"; };
 		197940CC1E84041700FA41A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		197940D11E84041700FA41A5 /* NotificationQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotificationQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				197940D21E84041700FA41A5 /* NotificationQueue.framework in Frameworks */,
+				197940D21E84041700FA41A5 /* NotificationQueueiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +68,7 @@
 		197940C91E84041700FA41A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				197940C81E84041700FA41A5 /* NotificationQueue.framework */,
+				197940C81E84041700FA41A5 /* NotificationQueueiOS.framework */,
 				197940D11E84041700FA41A5 /* NotificationQueueTests.xctest */,
 			);
 			name = Products;
@@ -109,9 +109,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		197940C71E84041700FA41A5 /* NotificationQueue */ = {
+		197940C71E84041700FA41A5 /* NotificationQueueiOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 197940DC1E84041700FA41A5 /* Build configuration list for PBXNativeTarget "NotificationQueue" */;
+			buildConfigurationList = 197940DC1E84041700FA41A5 /* Build configuration list for PBXNativeTarget "NotificationQueueiOS" */;
 			buildPhases = (
 				197940C31E84041700FA41A5 /* Sources */,
 				197940C41E84041700FA41A5 /* Frameworks */,
@@ -122,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = NotificationQueue;
+			name = NotificationQueueiOS;
 			productName = NotificationQueue;
-			productReference = 197940C81E84041700FA41A5 /* NotificationQueue.framework */;
+			productReference = 197940C81E84041700FA41A5 /* NotificationQueueiOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		197940D01E84041700FA41A5 /* NotificationQueueTests */ = {
@@ -178,7 +178,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				197940C71E84041700FA41A5 /* NotificationQueue */,
+				197940C71E84041700FA41A5 /* NotificationQueueiOS */,
 				197940D01E84041700FA41A5 /* NotificationQueueTests */,
 			);
 		};
@@ -225,7 +225,7 @@
 /* Begin PBXTargetDependency section */
 		197940D41E84041700FA41A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 197940C71E84041700FA41A5 /* NotificationQueue */;
+			target = 197940C71E84041700FA41A5 /* NotificationQueueiOS */;
 			targetProxy = 197940D31E84041700FA41A5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -405,7 +405,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		197940DC1E84041700FA41A5 /* Build configuration list for PBXNativeTarget "NotificationQueue" */ = {
+		197940DC1E84041700FA41A5 /* Build configuration list for PBXNativeTarget "NotificationQueueiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				197940DD1E84041700FA41A5 /* Debug */,
