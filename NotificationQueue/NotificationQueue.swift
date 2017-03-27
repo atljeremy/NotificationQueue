@@ -155,8 +155,11 @@ open class NotificationQueue: Collection {
         _notificationDispatchQueue.sync {
             var removedNotifications = [Notification]()
             for notification in self._queue {
-                if notification.scheduledForDate <= Date() {
-                    self.dispatch(notification)
+                guard notification.scheduledForDate <= Date() else {
+                    continue
+                }
+                
+                if self.dispatch(notification) {
                     removedNotifications.append(notification)
                 }
             }
@@ -168,23 +171,28 @@ open class NotificationQueue: Collection {
         }
     }
     
-    fileprivate func dispatch(_ notification: Notification) {
+    fileprivate func dispatch(_ notification: Notification) -> Bool {
+        var handled = false
         _handlerDispatchQueue.sync {
             self._handlers = self._handlers.filter { $0.handler != nil }
             for weakHandler in self._handlers {
                 guard let handler = weakHandler.handler else {
-                    return
+                    continue
                 }
                 
                 guard handler.canHandle(notification) else {
-                    return
+                    continue
                 }
+                
+                handled = true
                 
                 DispatchQueue.main.async {
                     handler.handle(notification)
                 }
             }
         }
+        
+        return handled
     }
     
     public func enqueue(_ notification: Notification) {
