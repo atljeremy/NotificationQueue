@@ -29,7 +29,7 @@ NotificationHandler
 
 All `Notification`'s must be handled by a `NotificationHandler`. `NotificationHandler` is simply a protocol that you will have your objects conform to if they should be responsible for handling `Notifiation`'s. Here's a simple example of how to conform to the `NotificationHandler` protocol.
 ```swift
-class SomeViewController: UIViewController, NotificationHandler {
+extension SomeViewController: NotificationHandler {
     
     func canHandle(notification: Notification) -> Bool {
         
